@@ -1,4 +1,5 @@
 from virheet import SanaError
+import random
 
 class Sanat:
     def __init__(self):
@@ -32,3 +33,17 @@ class Sanat:
         if not self._kaikkikirjaimet:
             raise SanaError('Ei ole alustettu sanalla jossa kaikki käytössä olevat kirjaimet')
         return ehdokas in self._loydetyt[self._kaikkikirjaimet]
+    def satunnainen_sana(self, minimipituus=6, maxpituus=8):
+        loydetyt = list(filter(lambda s: len(s) >= minimipituus and len(s) <= maxpituus, self._sanat))
+        valittusana = loydetyt[random.randint(0, len(loydetyt))]
+        self.alusta_sanalla(valittusana)
+        return valittusana
+    def satunnaiset_kirjaimet(self, minimipituus=6, maxpituus=8, **kwargs):
+        if ('sana' in kwargs):
+            sana = kwargs['sana']
+        else:
+            sana = self.satunnainen_sana()
+        sanalistana = list(sana)
+        random.shuffle(sanalistana)
+        ansa = "".join(sanalistana)
+        return ansa

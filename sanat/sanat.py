@@ -8,7 +8,7 @@ class Sanat:
     def alusta(self, sanatiedosto='words.txt', minlen=3):
         try:
             with open(sanatiedosto, 'r', encoding='utf-8') as tdsto:
-                luettu = [ row.strip() for row in tdsto if len(row) > minlen]
+                luettu = [ row.strip() for row in tdsto if len(row) > minlen and row[0] != '#']
             self._sanat = luettu
         except IOError as e:
             raise SanaError("Tiedoston '{}' lukeminen epäonnistui: {1}".format(sanatiedosto, str(e)))
